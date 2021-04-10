@@ -63,7 +63,7 @@ jobs:
           context: oiwiki
           push: true
           tags: vxst/oiwiki:latest, vxst/oiwiki:${{ steps.date.outputs.date }}
-  vx.st:
+  vx-st:
     runs-on: ubuntu-latest
     steps:
       -
