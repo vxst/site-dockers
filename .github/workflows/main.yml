@@ -5,8 +5,7 @@ on:
     branches:
       - 'main'
   schedule:
-    # Make weekly upgrade, since RHEL normally won't break anything in a upgrade
-    - cron:  '30 20 * * 0'
+    - cron:  '30 22 * * 0'
 
 jobs:
   mtf-rip:
@@ -35,3 +34,32 @@ jobs:
           context: mtf.rip
           push: true
           tags: vxst/mtf.rip:latest, vxst/mtf.rip:${{ steps.date.outputs.date }}
+  oiwiki:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - 
+        name: Clone OIWiki
+        run: git clone https://gitee.com/OI-wiki/OI-wiki.git -b gh-pages oiwiki/html --depth 1
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: oiwiki
+          push: true
+          tags: vxst/oiwiki:latest, vxst/oiwiki:${{ steps.date.outputs.date }}
