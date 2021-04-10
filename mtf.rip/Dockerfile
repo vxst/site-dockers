@@ -1,4 +1,4 @@
-FROM bitnami/nginx
+FROM bitnami/nginx:1.19
 
 WORKDIR /app
 COPY ./html/* .
