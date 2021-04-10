@@ -63,3 +63,29 @@ jobs:
           context: oiwiki
           push: true
           tags: vxst/oiwiki:latest, vxst/oiwiki:${{ steps.date.outputs.date }}
+  vx.st:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: vx.st
+          push: true
+          tags: vxst/vx.st:latest, vxst/vx.st:${{ steps.date.outputs.date }}
