@@ -55,7 +55,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - 
         name: Clone OIWiki
-        run: git clone https://gitee.com/OI-wiki/OI-wiki.git -b gh-pages oiwiki/html --depth 1
+        run: git clone https://github.com/OI-wiki/OI-wiki.git -b gh-pages oiwiki/html --depth 1
       -
         name: Build and push
         uses: docker/build-push-action@v2
