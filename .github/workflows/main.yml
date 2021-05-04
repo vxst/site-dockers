@@ -64,6 +64,8 @@ jobs:
         with:
           context: oiwiki
           push: true
+          cache-from: type=registry,ref=vxst/oiwiki:latest
+          cache-to: type=inline
           tags: vxst/oiwiki:latest, vxst/oiwiki:${{ steps.date.outputs.date }}
   vx-st:
     runs-on: ubuntu-latest
@@ -90,4 +92,6 @@ jobs:
         with:
           context: vx.st
           push: true
+          cache-from: type=registry,ref=vxst/vx.st:latest
+          cache-to: type=inline
           tags: vxst/vx.st:latest, vxst/vx.st:${{ steps.date.outputs.date }}
