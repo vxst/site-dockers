@@ -33,6 +33,8 @@ jobs:
         with:
           context: mtf.rip
           push: true
+          cache-from: type=registry,ref=vxst/mtf.rip:latest
+          cache-to: type=inline
           tags: vxst/mtf.rip:latest, vxst/mtf.rip:${{ steps.date.outputs.date }}
   oiwiki:
     runs-on: ubuntu-latest
